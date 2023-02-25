@@ -1,5 +1,5 @@
 ### A Pluto.jl notebook ###
-# v0.19.5
+# v0.19.22
 
 using Markdown
 using InteractiveUtils
@@ -102,7 +102,7 @@ begin
 		for i=1:nev
 			push!(λ_error,abs(λ[i] - λref[i]))
 			if use_vref_finest
-				vinter=interpolate(gridref,v[:,i],grid)
+				vinter=HelmholtzProject.interpolate(gridref,v[:,i],grid)
 				vl2,vh1 = HelmholtzProject.fenorms(abs.(vinter) - abs.(vref_finest[i]),gridref)
 			else
 				vl2,vh1 = HelmholtzProject.fenorms(abs.(v[:,i]) - abs.(vref[i]),grid)
@@ -176,9 +176,6 @@ nev2d=10
 # ╔═╡ 1f9e5f6b-6018-4fb3-a697-c913de362288
 rect=rect_r
 
-# ╔═╡ 586d9db6-f145-4bdb-8828-a901d7b34288
-eigensolver2=arpack_eigen
-
 # ╔═╡ 50d7b0e8-af27-416d-9c1b-08f19d0487eb
 gridref2d=rect(nref=maxnref2d,w=wx,h=wy)
 
@@ -217,12 +214,15 @@ begin
 	end
 end
 
+# ╔═╡ 586d9db6-f145-4bdb-8828-a901d7b34288
+eigensolver2=arpack_eigen
+
 # ╔═╡ 996186c6-ac51-454b-85b6-ed5013623fb0
 # ╠═╡ show_logs = false
-λ2,v2=eigensolver2(Aref2d,Mref2d,nev=nev2d,maxiter=10000,tol=1.0e-14); 
+λ2,v2=eigensolver2(Aref2d,Mref2d,nev=nev2d,maxiter=10000,tol=1.0e-14)
 
 # ╔═╡ b2e11d07-e8d6-4e5a-a324-258ba2eae314
-iλ2=7
+iλ2=10
 
 # ╔═╡ a7e3f275-50bf-4847-ade1-2cdea5307d62
 fenorms(Aref2d*v2[:,iλ2]-λ2[iλ2]*Mref2d*v2[:,iλ2],gridref2d)
@@ -276,7 +276,7 @@ begin
 		for i=1:nev
 			push!(λ_error,abs(λ[i] - λref2d[i]))
 			if use_vref2d_finest
-				vinter=interpolate(gridref2d,v[:,i],grid,eps=1.0e-10)
+				vinter=HelmholtzProject.interpolate(gridref2d,v[:,i],grid,eps=1.0e-10)
 				vl2,vh1 = HelmholtzProject.fenorms(abs.(vinter) - abs.(vref2d_finest[i]),gridref2d)
 				@info vl2
 			else
@@ -346,13 +346,13 @@ end
 # ╠═64fd813d-9991-42ba-8f1c-a9f003b663ef
 # ╠═b08cd584-2e26-476f-af1c-79f95b2874d6
 # ╠═1f9e5f6b-6018-4fb3-a697-c913de362288
-# ╠═586d9db6-f145-4bdb-8828-a901d7b34288
 # ╠═50d7b0e8-af27-416d-9c1b-08f19d0487eb
 # ╠═7f3ae857-be85-44fa-83ee-f600681267f7
 # ╟─45f52a3d-76ec-4481-bce5-43ac67ab7b85
 # ╠═8b841921-32bd-4968-9e7a-58058e7f50c7
 # ╠═fe090c86-06f2-4c3a-a7c8-eb9b3364d6c2
 # ╠═e4df6a0f-dd50-43a4-9dcf-36490c43136c
+# ╠═586d9db6-f145-4bdb-8828-a901d7b34288
 # ╠═996186c6-ac51-454b-85b6-ed5013623fb0
 # ╟─f6901680-9c46-4bc4-ba9d-342384f2fed2
 # ╠═b2e11d07-e8d6-4e5a-a324-258ba2eae314

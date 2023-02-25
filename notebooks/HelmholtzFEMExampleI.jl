@@ -1,5 +1,5 @@
 ### A Pluto.jl notebook ###
-# v0.19.5
+# v0.19.22
 
 using Markdown
 using InteractiveUtils
@@ -188,10 +188,13 @@ Eigenvalue index $(@bind iT2 PlutoUI.Slider(1:length(λ),show_value=true))
 λ[iT2]
 
 # ╔═╡ 9dee97de-c7c8-4209-a2bd-c22a3e394b67
-vis=GridVisualizer(dim=2);vis
+vis=GridVisualizer(dim=2,size=(300,300))
 
 # ╔═╡ db8521f3-9ceb-4f63-8032-9da454d54577
-scalarplot!(vis,grid2,abs.(v[:,iT2]),label="abs",colormap=:hot,show=true,levels=0)
+let
+	@info iT2
+	scalarplot!(vis,grid2,abs.(v[:,iT2]),label="abs",colormap=:hot,show=true,levels=0)
+end
 
 # ╔═╡ 2e873ab7-08e1-4d8b-acbe-dcaec4218ba9
 plotev(λ)
@@ -245,7 +248,7 @@ end
 g1=grid2d(;nref=4)
 
 # ╔═╡ 46f8d6f0-3fb5-40bf-aacf-498e17e3f6fa
-u1=interpolate(g1,u0,g0)
+u1=HelmholtzProject.interpolate(g1,u0,g0)
 
 # ╔═╡ db1151e3-c65b-4442-8f7c-1959278d805d
 scalarplot(g1,u1,size=(500,300))
@@ -268,7 +271,7 @@ scalarplot(g1,u1,size=(500,300))
 # ╠═d1a2d08e-2519-4c2e-b9a8-6a07fd2ad844
 # ╟─ddca0556-9b43-4125-989d-e1a0547a3806
 # ╟─52111b28-fc99-413c-a702-88bc252f383e
-# ╟─6727d195-5897-40d9-9a66-a6e572736783
+# ╠═6727d195-5897-40d9-9a66-a6e572736783
 # ╟─16d201b6-b352-4130-a9f7-4dd702319442
 # ╠═089c2f36-fe58-4450-8aed-cb3f7825b1a2
 # ╟─e3edbbd9-19e4-41ee-8cba-05575b05c1b1
@@ -282,7 +285,7 @@ scalarplot(g1,u1,size=(500,300))
 # ╠═9a9289f4-6c69-4f6d-95de-9f67a320ef92
 # ╠═a9253faa-9e95-45ec-bc7c-df750143f737
 # ╠═1f02a3da-70c0-487b-b999-7de1a4c88375
-# ╟─caedced1-cf90-475e-88ba-a5880762fda7
+# ╠═caedced1-cf90-475e-88ba-a5880762fda7
 # ╠═34d212dc-856c-4eb4-a677-ae3858a1ca89
 # ╠═9c3359c6-afa4-4665-9933-98b8ebcf0bc9
 # ╠═0737c4b4-f6fc-4578-86be-0dcfffc37d16
@@ -292,7 +295,7 @@ scalarplot(g1,u1,size=(500,300))
 # ╟─ba542ed8-5408-4b47-9877-0d6651aa472c
 # ╠═5aec611b-94a9-420b-a71c-64b09ee7e373
 # ╠═9dee97de-c7c8-4209-a2bd-c22a3e394b67
-# ╠═db8521f3-9ceb-4f63-8032-9da454d54577
+# ╟─db8521f3-9ceb-4f63-8032-9da454d54577
 # ╟─2e873ab7-08e1-4d8b-acbe-dcaec4218ba9
 # ╠═2a8bf655-66da-4567-9800-ad8f6826d970
 # ╠═a082642c-4809-42fe-a912-3fb60646ff8d

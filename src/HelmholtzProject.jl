@@ -14,6 +14,7 @@ using Arpack
 using SparseArrays
 using KrylovKit
 using JacobiDavidson
+using GenericArpack
 
 # FEM library, implemented as a  Pluto notebook without package dependencies when included here
 include("femlib.jl")
@@ -23,7 +24,7 @@ export assemble_helmholtz
 export fenorms,interpolate
 
 include("eigenlib.jl")
-export lapack_eigen, arpack_eigen,krylovkit_eigen,jd_eigen
+export lapack_eigen, arpack_eigen,krylovkit_eigen,jd_eigen,garpack_eigen
 
 # Example grids,  implemented as a  Pluto notebook without package dependencies when included here
 include("grids.jl")

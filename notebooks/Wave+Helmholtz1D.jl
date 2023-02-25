@@ -1,5 +1,5 @@
 ### A Pluto.jl notebook ###
-# v0.18.4
+# v0.19.22
 
 using Markdown
 using InteractiveUtils
@@ -18,11 +18,11 @@ end
 begin
 	using Pkg
 	Pkg.activate(joinpath(@__DIR__,".."))
-	using VoronoiFVM
+	using VoronoiFVMDiffEq
+	using DifferentialEquations
 	using ExtendableGrids
 	using GridVisualize
 	using PlutoUI
-	using DifferentialEquations
 	using PlutoVista
 	using ExtendableSparse
 	using LinearAlgebra
@@ -148,8 +148,8 @@ problem = ODEProblem(sys,inival,(0.0,tend))
 
 # ╔═╡ 4f14fbc5-e369-497d-b234-37460809a0bd
 tsol=DifferentialEquations.solve(problem,
+	                               Rosenbrock23();  
 		                           initializealg=NoInit(),
-	                               solver=Rosenbrock23(),  
                                    force_dtmin=true,
                                    adaptive=true,
                                    reltol=1.0e-4,
@@ -158,6 +158,9 @@ tsol=DifferentialEquations.solve(problem,
 	                               progress=true,
 	                               progress_steps=1,
                                    dt=dt);
+
+# ╔═╡ 68fefe0a-caf6-4ace-9119-887e12f85c17
+tsol.alg
 
 # ╔═╡ 6772197f-a8fb-44bb-8ffb-294dba34c1fc
 tsol1=reshape(tsol,sys);
@@ -234,18 +237,16 @@ begin
 end;
 
 # ╔═╡ 478776ea-df69-4378-bf50-ab3f56335ffc
-if false
-     tsol2=VoronoiFVM.solve(sys2,inival=inival2,times=[0.001,tend2];control=control2);
-else
-	problem2 = ODEProblem(sys2,inival2,(0.1,tend2))
- tsol20=DifferentialEquations.solve(problem2,
+begin
+	problem2 = ODEProblem(sys2,inival2,(0.01,tend2))
+ 	tsol20=DifferentialEquations.solve(problem2,
+	                               Rosenbrock23(); 
 		                           initializealg=NoInit(),
-	                               solve=Rosenbrock23(),  
                                    force_dtmin=false,
                                    adaptive=true,
                                    reltol=1.0e-2,
                                    abstol=1.0e-3,
-                                   dtmin=0.01*dt2,
+                                   dtmin=0.001*dt2,
 	                               progress=true,
 	                               progress_steps=1,
                                    dt=dt2);
@@ -566,7 +567,7 @@ kT=rkT+ikT*im;kT^2
 AT,MT,bT=assembleT(Complex{Float64},N1,n,kT,transparent=transparentT);
 
 # ╔═╡ 1b49f27c-215f-4a4a-a690-50f8317873bc
-eT=eigen(Matrix(AT),Matrix(MT))
+eT=eigen(Matrix(AT),Matrix(MT));
 
 # ╔═╡ 1086b569-6549-4453-9d33-61c77bc76b75
 md"""
@@ -624,6 +625,7 @@ md"""
 # ╠═196ac156-9999-4e0f-92c0-2387d84b3555
 # ╠═00b362c3-eaec-4e9e-a119-bf22cd7aa33e
 # ╠═4f14fbc5-e369-497d-b234-37460809a0bd
+# ╠═68fefe0a-caf6-4ace-9119-887e12f85c17
 # ╠═6772197f-a8fb-44bb-8ffb-294dba34c1fc
 # ╟─1781ac71-de97-48c9-94fa-a4b59c74a7e3
 # ╠═707c0d50-065a-44fd-a3a6-33210b8bcf90

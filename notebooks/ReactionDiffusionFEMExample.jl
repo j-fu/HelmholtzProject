@@ -1,5 +1,5 @@
 ### A Pluto.jl notebook ###
-# v0.19.5
+# v0.19.22
 
 using Markdown
 using InteractiveUtils
@@ -99,7 +99,7 @@ begin
 	glast=nothing
 	ulast=nothing
 	for nref=1:maxref
-	    gridt=unitsquare_r(;nref)
+	    gridt=rect_r(;nref)
   	 	At,ft=assemble_reaction_diffusion(gridt,r=rx,b=bx,f=fx,m=mass_matrix_lumped)
 		ut=At\ft
 		el2,eh1=fenorms(ut-map(u0,gridt),gridt)

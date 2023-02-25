@@ -1,5 +1,5 @@
 ### A Pluto.jl notebook ###
-# v0.19.5
+# v0.19.22
 
 using Markdown
 using InteractiveUtils
@@ -99,7 +99,7 @@ begin
 		v_errorh1=[]
 		for i=1:nev
 			push!(λ_error,abs(λ[i] - λref[i]))
-			vinter=interpolate(gridref,v[:,i],grid)
+			vinter=HelmholtzProject.interpolate(gridref,v[:,i],grid)
 			vl2,vh1 = HelmholtzProject.fenorms(abs.(vinter) - abs.(vref[:,i]),gridref)
 	        push!(v_errorl2,vl2)	
 	        push!(v_errorh1,vh1)	
