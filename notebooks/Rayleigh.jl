@@ -1,5 +1,5 @@
 ### A Pluto.jl notebook ###
-# v0.19.22
+# v0.19.21
 
 using Markdown
 using InteractiveUtils
@@ -9,7 +9,6 @@ begin
 	using Pkg
 	Pkg.activate(joinpath(@__DIR__,".."))
 	using Revise
-	using PyPlot
 	using ExtendableSparse
 	using SparseArrays
 	using Printf

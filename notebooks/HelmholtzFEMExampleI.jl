@@ -1,5 +1,5 @@
 ### A Pluto.jl notebook ###
-# v0.19.22
+# v0.19.21
 
 using Markdown
 using InteractiveUtils
@@ -188,7 +188,7 @@ Eigenvalue index $(@bind iT2 PlutoUI.Slider(1:length(λ),show_value=true))
 λ[iT2]
 
 # ╔═╡ 9dee97de-c7c8-4209-a2bd-c22a3e394b67
-vis=GridVisualizer(dim=2,size=(300,300))
+vis=GridVisualizer(dim=2,size=(500,300))
 
 # ╔═╡ db8521f3-9ceb-4f63-8032-9da454d54577
 let
@@ -295,7 +295,7 @@ scalarplot(g1,u1,size=(500,300))
 # ╟─ba542ed8-5408-4b47-9877-0d6651aa472c
 # ╠═5aec611b-94a9-420b-a71c-64b09ee7e373
 # ╠═9dee97de-c7c8-4209-a2bd-c22a3e394b67
-# ╟─db8521f3-9ceb-4f63-8032-9da454d54577
+# ╠═db8521f3-9ceb-4f63-8032-9da454d54577
 # ╟─2e873ab7-08e1-4d8b-acbe-dcaec4218ba9
 # ╠═2a8bf655-66da-4567-9800-ad8f6826d970
 # ╠═a082642c-4809-42fe-a912-3fb60646ff8d

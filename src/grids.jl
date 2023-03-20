@@ -1,23 +1,18 @@
 ### A Pluto.jl notebook ###
-# v0.19.5
+# v0.19.21
 
 using Markdown
 using InteractiveUtils
 
 # ╔═╡ ba562efe-1157-11ec-3ed6-97e95cd04353
 if isdefined(Main, :PlutoRunner)
-    # Ensure not using `,` as floating point decimal delimiter
-    # in certain language enviromnents.
-    ENV["LC_NUMERIC"] = "C"
-    ENV["MPLBACKEND"] = "agg"
     using Pkg
     Pkg.activate(joinpath(@__DIR__, ".."))
     using Revise
     using PlutoUI
     using SimplexGridFactory, GridVisualize, ExtendableGrids, Triangulate, LinearAlgebra
-    import PyPlot
-    PyPlot.svg(true)
-    GridVisualize.default_plotter!(PyPlot)
+    import CairoMakie
+    GridVisualize.default_plotter!(CairoMakie)
     inpluto = true
 else
     inpluto = false
@@ -29,7 +24,7 @@ The contents of this pluto notebook is made available as part of the HelmholtzPr
 """
 
 # ╔═╡ 9ca39b3c-fca9-4a53-adea-61caa83c05fd
-md""" By default, this notebook uses PyPlot as plotting backend for GridVisualize."""
+md""" By default, this notebook uses CairoMakie as plotting backend for GridVisualize."""
 
 # ╔═╡ 8e564f00-735d-4fca-821d-50fce8e84d79
 if inpluto
@@ -74,7 +69,7 @@ end
 
 # ╔═╡ 408a3da2-0751-4e78-a8a3-d235f76ea13f
 if inpluto
-    gridplot(grid2d_circle_in_square(; nref = 2); resolution = (300, 300))
+    gridplot(grid2d_circle_in_square(; nref = 2); resolution = (300, 300),linewidth=0.5)
 end
 
 # ╔═╡ 87fa7938-4ee7-4749-9538-1116387b808f
@@ -187,7 +182,7 @@ end;
 
 # ╔═╡ 0deab116-197a-4cfc-a94a-529adfa4ce4f
 if inpluto
-    builderplot(builder4; Plotter = PyPlot, resolution = (750, 700))
+    builderplot(builder4; Plotter = CairoMakie, resolution = (750, 700))
 end
 
 # ╔═╡ 3375c6fe-0ffc-4a80-9f73-245d3f8a4abd
@@ -242,7 +237,7 @@ end
 
 # ╔═╡ 2878ae3f-8e4b-4f76-a194-d01b8993f6a8
 if inpluto
-    gridplot(grid2d_preprint_xy(); resolution = (600, 400), linewidth = 0.5, legend = :lt)
+    gridplot(grid2d_preprint_xy(); resolution = (600, 400), linewidth = 0.5)
 end
 
 # ╔═╡ b9d2b069-fbd5-4d0a-a4b7-c87cdff5a03d
@@ -288,7 +283,7 @@ end
 # ╔═╡ f58d0c1d-6009-4853-b288-5f1de2d90f40
 if inpluto
     gridplot(grid2d_preprint_xz(); resolution = (600, 400),
-             linewidth = 0.5, legend = :lt)
+             linewidth = 0.5)
 end
 
 # ╔═╡ 5bd9792b-04eb-4116-a85d-d6201acba562
